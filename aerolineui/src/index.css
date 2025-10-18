@@ -1,0 +1,281 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import './components/animations.css';
+
+/* Glass UI utilities (inspired by iOS 16+ frosted glass) */
+.glass-panel {
+  background: rgba(15, 34, 63, 0.28);
+  backdrop-filter: saturate(180%) blur(18px);
+  -webkit-backdrop-filter: saturate(180%) blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.glass-elevated {
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.45),
+    0 2px 10px rgba(0, 0, 0, 0.35),
+    0 1px 0 rgba(255, 255, 255, 0.05) inset,
+    0 -1px 0 rgba(255, 255, 255, 0.03) inset;
+  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.35)) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25));
+}
+
+
+.floating-header {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1400px, calc(100% - 48px));
+  height: 60px;
+  border-radius: 9999px; /* pill/ovular */
+  z-index: 50;
+  overflow: hidden; /* for ambient overlays */
+  isolation: isolate; /* ensure blend modes apply within */
+}
+
+@media (max-width: 768px) {
+  .floating-header {
+    width: calc(100% - 24px);
+    height: 52px;
+    top: 16px;
+  }
+}
+
+.glass-liquid {
+  /* Subtle, unified tone to avoid dual-color look */
+  background-image:
+    radial-gradient(1000px 260px at 10% -60%, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0) 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.02));
+  background-color: rgba(16, 28, 44, 0.46);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.glass-ambient { position: relative; }
+.glass-ambient::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(120px 40px at 20% 0%, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0) 60%),
+    radial-gradient(160px 60px at 80% 0%, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0) 60%);
+  mix-blend-mode: soft-light;
+  opacity: 0.9;
+}
+.glass-ambient::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0) 60%);
+  opacity: 0.9;
+}
+
+/* Liquid Glass Flow Effect */
+.glass-flow {
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-flow::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -20%;
+  width: 160%;
+  height: 180%;
+  pointer-events: none;
+  background: radial-gradient(55% 35% at 20% 10%, rgba(255, 255, 255, 0.22), rgba(255,255,255,0) 60%),
+              radial-gradient(40% 25% at 80% 0%, rgba(90, 227, 197, 0.14), rgba(90,227,197,0) 60%);
+  mix-blend-mode: soft-light;
+  opacity: 0.75;
+  transform: translateX(-6%);
+  transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1), opacity 300ms ease;
+}
+
+.glass-flow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0) 60%);
+  opacity: 0.9;
+}
+
+.glass-flow:hover {
+  background-color: rgba(18, 32, 50, 0.52);
+  backdrop-filter: saturate(200%) blur(22px);
+  -webkit-backdrop-filter: saturate(200%) blur(22px);
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.55),
+    0 4px 14px rgba(0, 0, 0, 0.35),
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 -1px 0 rgba(255, 255, 255, 0.04) inset;
+}
+
+.glass-flow:hover::before {
+  transform: translateX(8%);
+  opacity: 0.95;
+}
+
+/* Liquid Glass Nav Pills */
+.nav-pill {
+  position: relative;
+  border-radius: 9999px;
+  padding: 8px 16px;
+  transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  overflow: hidden;
+}
+
+.nav-pill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.15), transparent 70%);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 250ms ease, transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.nav-pill:hover {
+  background: rgba(94, 234, 212, 0.16);
+  color: #5eead4;
+  border-color: rgba(94, 234, 212, 0.35);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 4px 12px rgba(94, 234, 212, 0.15);
+  transform: translateY(-1px);
+}
+
+.nav-pill:hover::before {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.nav-pill:active {
+  background: rgba(94, 234, 212, 0.24);
+  border-color: rgba(94, 234, 212, 0.45);
+  transform: translateY(0);
+}
+
+/* Hide scrollbar utility (for header nav overflow on small screens) */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Reusable Glass Card Utilities */
+.glass-card {
+  background: rgba(15, 34, 63, 0.35);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.35),
+    0 1px 0 rgba(255, 255, 255, 0.06) inset;
+}
+
+.glass-card-hover {
+  transition: all 200ms ease;
+}
+
+.glass-card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    0 1px 0 rgba(255, 255, 255, 0.08) inset;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.glass-card-glow {
+  position: relative;
+}
+
+.glass-card-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(600px 200px at 50% -20%, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0) 70%);
+  mix-blend-mode: soft-light;
+  opacity: 0.8;
+}
+
+/* Glass variants for different contexts */
+.glass-sidebar {
+  background: rgba(10, 25, 47, 0.4);
+  backdrop-filter: saturate(170%) blur(18px);
+  -webkit-backdrop-filter: saturate(170%) blur(18px);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    4px 0 24px rgba(0, 0, 0, 0.3),
+    -1px 0 0 rgba(255, 255, 255, 0.03) inset;
+}
+
+.glass-modal {
+  background: rgba(15, 34, 63, 0.5);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 2px 0 rgba(255, 255, 255, 0.08) inset,
+    0 -1px 0 rgba(255, 255, 255, 0.04) inset;
+}
+
+.glass-button {
+  background: rgba(20, 184, 166, 0.15);
+  backdrop-filter: saturate(150%) blur(10px);
+  -webkit-backdrop-filter: saturate(150%) blur(10px);
+  border: 1px solid rgba(20, 184, 166, 0.3);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.25),
+    0 1px 0 rgba(255, 255, 255, 0.1) inset;
+  transition: all 150ms ease;
+}
+
+.glass-button:hover {
+  background: rgba(20, 184, 166, 0.25);
+  border-color: rgba(20, 184, 166, 0.4);
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.3),
+    0 1px 0 rgba(255, 255, 255, 0.15) inset;
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 150ms ease;
+}
+
+.glass-input:focus {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(20, 184, 166, 0.5);
+  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
+  outline: none;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

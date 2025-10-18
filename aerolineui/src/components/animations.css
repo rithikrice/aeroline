@@ -1,0 +1,106 @@
+/* Pulse Animation for Critical Items */
+@keyframes pulse-red {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(239, 68, 68, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.8);
+  }
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    /* No transform to avoid layout shift */
+    text-shadow: 0 0 0 rgba(244, 63, 94, 0);
+  }
+  20%, 40% {
+    /* Subtle glow without moving text */
+    text-shadow: 0 0 8px rgba(244, 63, 94, 0.7);
+  }
+}
+
+.pulse-critical {
+  animation: pulse-red 2s ease-in-out infinite;
+}
+
+.pulse-glow-critical {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.heartbeat {
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+/* Confidence Meter Styles */
+.confidence-meter {
+  position: relative;
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.confidence-fill {
+  height: 100%;
+  transition: width 0.3s ease;
+  border-radius: 4px;
+}
+
+.confidence-high {
+  background: linear-gradient(90deg, #10b981, #14b8a6);
+}
+
+.confidence-medium {
+  background: linear-gradient(90deg, #f59e0b, #eab308);
+}
+
+.confidence-low {
+  background: linear-gradient(90deg, #ef4444, #f97316);
+}
+
+/* Loading skeleton */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.skeleton {
+  animation: shimmer 2s infinite linear;
+  background: linear-gradient(
+    to right,
+    #1e293b 4%,
+    #334155 25%,
+    #1e293b 36%
+  );
+  background-size: 1000px 100%;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
